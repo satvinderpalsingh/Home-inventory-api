@@ -1,0 +1,17 @@
+Entities in an Home-Inventory-app::
+1. user= contains  different attributes that tells the info about the the owner of an item
+              for ex: Legion Y540 owner is Satviner Pal Singh age 18 ...
+
+2. Manufacture= contains different attr that depict the info about the manufacture of the item
+
+3. item-type= contains different attr that tell about the type of an item 
+
+4. item=  contains different attr that tell about the info about specific item
+
+5. warranty= contains different attr that tell about warranty of an item
+
+6. item-location= contains different attr that tell about location in a house
+
+7. item-purchase-location= contains different attr  that tell about location in an market
+
+8. comment= contains different attr  that tell about reviews of different users about an item
