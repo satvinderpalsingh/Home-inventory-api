@@ -14,4 +14,25 @@ Entities in an Home-Inventory-app::
 
 7. item-purchase-location= contains different attr  that tell about location in an market
 
-8. comment= contains different attr  that tell about reviews of different users about an item
+8. comment= contains different attr that tell about reviews of different users about an item
+
+9. shape= contains different attr that tell about the sape of the item
+
+10 size=  contains different attr that tell about different dimesion of the item
+
+11 item_info=  contains different attr that tell about information specific
+
+12 item_image=  contains different attr that tell url of the image
+
+13 related_item=
+
+14 company=
+
+15 address=
+
+16 state=
+
+17 country=
+ 
+for er-diagram refer to the lucid chart diagram pdf.
+
