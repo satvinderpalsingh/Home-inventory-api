@@ -1,0 +1,5 @@
+
+docker-desktop-installer
+postgres-sql
+node.js
+lucid_charts

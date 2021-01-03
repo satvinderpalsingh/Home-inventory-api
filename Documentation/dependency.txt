@@ -1,0 +1,4 @@
+node--
+1. knex
+2. pg
+3. dotenv

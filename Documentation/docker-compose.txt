@@ -1,0 +1,4 @@
+ docker-compose.yml file to store the all containers together up and running
+ postgres-db_image
+ adminer-adminer_image(database managemnent tool)
+ 

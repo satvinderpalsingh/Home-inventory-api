@@ -34,5 +34,6 @@ Entities in an Home-Inventory-app::
 
 17 country=
  
+every entity will have a created_at ,updated_at and deleted_at field
 for er-diagram refer to the lucid chart diagram pdf.
 
