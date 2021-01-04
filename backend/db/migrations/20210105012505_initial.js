@@ -11,6 +11,15 @@ function createNameTable(knex,table_name){//for same tables in database
         addDefaultColumns(table)
     });
 }
+function references(table,table_name){
+    table.integer(`${table_name}_id`).unsigned().references('id').inTable(table_name).onDelete('cascade');//cascade take care about if we delete in foreign table then  it must be deleted in tables t is refrencing
+}
+function url(table,coloumnName){
+    table.string(coloumnName,2000);
+}
+function email(table,coloumnName){
+    return table.string(coloumnName,254);//we are returning this because in user we want it to be not nullable and unique but not in manufacturer
+}
 /**
  * @param {import('knex')} knex
  */
@@ -18,7 +27,7 @@ exports.up = async (knex)=> {//async await used because some tables might be dep
     await Promise.all([//it contains all the tabels which are independent/has no FK
         knex.schema.createTable(tableNames.user,(table)=>{
             table.increments().notNullable();//increments() automatically set the index ,coloumn name=id, and its index to primary key
-            table.string('email',254).notNullable().unique();
+            email(table,'email').notNullable().unique();
             table.string('name').notNullable();
             table.string('password', 127).notNullable();
             table.datetime('last_login');
@@ -32,17 +41,40 @@ exports.up = async (knex)=> {//async await used because some tables might be dep
           table.increments().notNullable();
           table.string('name').notNullable().unique();
           table.string('description', 1000);
-          table.string('image_url',2000);
+          url(table,'image_url');
           addDefaultColumns(table);
         }),
 
     ]);
-  
+    await knex.schema.createTable(tableNames.address,(table)=>{
+        table.increments().notNullable();
+        table.string('street_address_1', 50).notNullable();
+        table.string('street_address_2', 50);
+        table.string('city', 50).notNullable();
+        table.string('pincode', 15).notNullable();//--zipcode
+        table.double('latitude').notNullable();
+        table.double('longitude').notNullable();
+        references(table,'state');
+        references(table,'country');
+        addDefaultColumns(table);
+    });
+    await knex.schema.createTable(tableNames.company,(table)=>{
+        table.increments().notNullable();
+        table.string('name').notNullable();
+        url(table,'logo_url');
+        table.string('description', 1000);
+        url(table,'website_url');
+        email(table,'email');
+        references(table,'address');
+        addDefaultColumns(table);
+    });
 };
 
 exports.down = async (knex)=>{
   await Promise.all(
     [
+      tableNames.company,
+      tableNames.address,
       tableNames.user,
       tableNames.item_type,
       tableNames.country,
