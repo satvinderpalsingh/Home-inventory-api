@@ -1,10 +1,10 @@
-const tableNames = require('../../src/constants/tableNames');
+const tableNames = require('../../src/constants/tableNames');//include to avoid to typo
 
-function addDefaultColumns(table){
+function addDefaultColumns(table){//as every table in a database will have the created_at ,updated_at and deleted_at column in it
     table.timestamps(false, true);
     table.datetime('deleted_at');
 }
-function createNameTable(knex,table_name){
+function createNameTable(knex,table_name){//for same tables in database
     return knex.schema.createTable(table_name,(table)=>{
         table.increments().notNullable();
         table.string('name').notNullable().unique();
@@ -14,8 +14,8 @@ function createNameTable(knex,table_name){
 /**
  * @param {import('knex')} knex
  */
-exports.up = async (knex)=> {
-    await Promise.all([
+exports.up = async (knex)=> {//async await used because some tables might be depended on other tables PK and FK cocepts 
+    await Promise.all([//it contains all the tabels which are independent/has no FK
         knex.schema.createTable(tableNames.user,(table)=>{
             table.increments().notNullable();//increments() automatically set the index ,coloumn name=id, and its index to primary key
             table.string('email',254).notNullable().unique();
