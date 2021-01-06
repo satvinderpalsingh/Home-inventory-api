@@ -1,6 +1,6 @@
 //file started with 00_initials because in order to maintain the sequence of seeding for db consistency
-const crypto = require('crypto');
-const bcrypt = require('bcrypt');
+const crypto = require('crypto');//random password generator
+const bcrypt = require('bcrypt');//to secure the passwords
 const orderTableNames = require('../../src/constants/orderTableNames');
 const tableNames = require('../../src/constants/tableNames');
 const countries=require('../../src/constants/countries');
@@ -14,7 +14,7 @@ exports.seed = async (knex) => {
   .reduce(async (promise,table_name)=>{
     await promise;
     return knex(table_name).del();
-  },Promise.resolve());
+  },Promise.resolve());//doubt
 
   const password = crypto.randomBytes(15).toString('hex');
   const user = {//this object will populate/seed the user table for us 
@@ -23,7 +23,7 @@ exports.seed = async (knex) => {
     password: await bcrypt.hash(password, 12),//random password
   };
   const [createdUser]=await knex(tableNames.user).insert(user).returning('*');// INSERTING USER OBJECT INSIDE IT postgress allows us to see the data that we have inserted usiing returning('*') in an array form
-  await knex(tableNames.country).insert(countries);
+  await knex(tableNames.country).insert(countries);//we can send single object as well as array of object also at one time.
   await knex(tableNames.state).insert(states);
 
 

@@ -21,7 +21,7 @@ function email(table,coloumnName){
     return table.string(coloumnName,254);//we are returning this because in user we want it to be not nullable and unique but not in manufacturer
 }
 /**
- * @param {import('knex')} knex
+ * @param {import('knex')} knex//adding this help us to auto complete the knex.schema.
  */
 exports.up = async (knex)=> {//async await used because some tables might be depended on other tables PK and FK cocepts 
     await Promise.all([//it contains all the tabels which are independent/has no FK
