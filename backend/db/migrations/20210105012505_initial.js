@@ -17,7 +17,7 @@ exports.up = async (knex)=> {//async await used because some tables might be dep
             table.string('name').notNullable();
             table.string('password', 127).notNullable();
             table.datetime('last_login');
-            addDefaultColumns(table)
+            addDefaultColumns(table);
         }),
         createNameTable(knex, tableNames.item_type),
         createNameTable(knex, tableNames.country),
