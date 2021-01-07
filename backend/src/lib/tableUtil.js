@@ -9,8 +9,8 @@ function createNameTable(knex,table_name){//for same tables in database
         addDefaultColumns(table)
     });
 }
-function references(table,table_name,notNullable=true){
-    const definition=table.integer(`${table_name}_id`).unsigned().references('id').inTable(table_name).onDelete('cascade');//cascade take care about if we delete in foreign table then  it must be deleted in tables t is refrencing
+function references(table,table_name,notNullable=true,coloumnName=''){//coloumnName added because we want column name rather than table(name)_id and we use js a||b if a is not null then use a otherwise uses the normal table_name
+    const definition=table.integer(`${coloumnName||table_name}_id`).unsigned().references('id').inTable(table_name).onDelete('cascade');//cascade take care about if we delete in foreign table then  it must be deleted in tables t is refrencing
     if (notNullable){
         definition.notNullable();
     }

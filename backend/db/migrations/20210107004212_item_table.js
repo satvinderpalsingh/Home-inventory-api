@@ -40,6 +40,18 @@ exports.up = async (knex)=>{
         table.boolean('sparks_joy').defaultTo(true);
 
     });
+    await knex.schema.createTable(tableNames.item_info,(table)=>{
+        table.increments();
+        references(table,tableNames.user);
+        references(table,tableNames.item);
+        table.dateTime('purchase_date').notNullable();
+        table.dateTime('expiration_date');
+        references(table,tableNames.company,false,'retailer');
+        table.dateTime('last_used');//nullable beacuse it might be remaning in the desk only
+        table.float('purchased_price').notNullable().defaultTo(0);//help to find discounts and can we used in futher buying mrp
+        table.float('mrp').notNullable().defaultTo(0);
+        references(table,tableNames.inventory_location);
+    });
     
 
 };
@@ -59,6 +71,7 @@ exports.down = async(knex)=>{
         table.dropColumn('code')
         
     });
+    await knex.schema.dropTable(tableNames.item);
     await knex.schema.dropTable(tableNames.size);
-
+    await knex.schema.dropTable(tableNames.item_info);
 };

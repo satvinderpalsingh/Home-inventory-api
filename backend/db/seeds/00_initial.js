@@ -24,7 +24,12 @@ exports.seed = async (knex) => {
   };
   const [createdUser]=await knex(tableNames.user).insert(user).returning('*');// INSERTING USER OBJECT INSIDE IT postgress allows us to see the data that we have inserted usiing returning('*') in an array form
   await knex(tableNames.country).insert(countries);//we can send single object as well as array of object also at one time.
-  await knex(tableNames.state).insert(states);
+  const state={
+    name:'jammu',
+    code:'jk',
+    country_id:2
+  };
+  await knex(tableNames.state).insert(state);
 
 
 };

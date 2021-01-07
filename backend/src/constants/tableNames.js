@@ -13,3 +13,6 @@ module.exports = {
     item_image: 'item_image',
     related_item: 'related_item',
   };
+
+  //this file was very useful because i had many times to change the name of the table so i simply change here rather than changing at every used location
+  //challenge faced is writting reusable code is very important
