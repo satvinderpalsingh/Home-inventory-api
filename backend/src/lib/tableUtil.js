@@ -9,8 +9,11 @@ function createNameTable(knex,table_name){//for same tables in database
         addDefaultColumns(table)
     });
 }
-function references(table,table_name){
-    table.integer(`${table_name}_id`).unsigned().references('id').inTable(table_name).onDelete('cascade');//cascade take care about if we delete in foreign table then  it must be deleted in tables t is refrencing
+function references(table,table_name,notNullable=true){
+    const definition=table.integer(`${table_name}_id`).unsigned().references('id').inTable(table_name).onDelete('cascade');//cascade take care about if we delete in foreign table then  it must be deleted in tables t is refrencing
+    if (notNullable){
+        definition.notNullable();
+    }
 }
 function url(table,coloumnName){
     table.string(coloumnName,2000);

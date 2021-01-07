@@ -40,7 +40,7 @@ exports.up = async (knex)=> {//async await used because some tables might be dep
         table.string('pincode', 15).notNullable();//--zipcode
         table.double('latitude').notNullable();
         table.double('longitude').notNullable();
-        references(table,'state');
+        references(table,'state');//in cj it is null
         references(table,'country');
         addDefaultColumns(table);
     });
