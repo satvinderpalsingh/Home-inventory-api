@@ -1,3 +1,4 @@
+const { related_item } = require('../../src/constants/tableNames');
 const tableNames = require('../../src/constants/tableNames');
 const {
     addDefaultColumns,
@@ -50,7 +51,20 @@ exports.up = async (knex)=>{
         table.dateTime('last_used');//nullable beacuse it might be remaning in the desk only
         table.float('purchased_price').notNullable().defaultTo(0);//help to find discounts and can we used in futher buying mrp
         table.float('mrp').notNullable().defaultTo(0);
+        addDefaultColumns(table);
         references(table,tableNames.inventory_location);
+    });
+    await knex.schema.createTable(tableNames.item_image,(table)=>{
+        table.increments();
+        url(table,'image_url');
+        references(table,tableNames.item);
+        addDefaultColumns(table);
+    });
+    await knex.schema.createTable(tableNames.related_item,(table)=>{
+        table.increments();
+        references(table,tableNames.item);//alert
+        references(table,tableNames.item,false,'related_item');//alert if we remove the false then we run a error that you are creating same column because we are having a dulicate to line just above it so we need to differentiate it from the above call
+        addDefaultColumns(table);
     });
     
 
@@ -71,7 +85,10 @@ exports.down = async(knex)=>{
         table.dropColumn('code')
         
     });
+    await knex.schema.dropTable(tableNames.related_item);
+    await knex.schema.dropTable(tableNames.item_image);
+    await knex.schema.dropTable(tableNames.item_info);//must droped before the item table as it has fk reference to it.
     await knex.schema.dropTable(tableNames.item);
     await knex.schema.dropTable(tableNames.size);
-    await knex.schema.dropTable(tableNames.item_info);
+    //use dropTableIfExist('table_name') rather than dropTable() because it will sove our issue of dropping if not exists
 };
