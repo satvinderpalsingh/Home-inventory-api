@@ -40,8 +40,8 @@ exports.up = async (knex)=> {//async await used because some tables might be dep
         table.string('pincode', 15).notNullable();//--zipcode
         table.double('latitude').notNullable();
         table.double('longitude').notNullable();
-        references(table,'state');//in cj it is null
-        references(table,'country');
+        references(table,'state',false);//in cj it is null
+        references(table,'country',false);
         addDefaultColumns(table);
     });
     await knex.schema.createTable(tableNames.company,(table)=>{
