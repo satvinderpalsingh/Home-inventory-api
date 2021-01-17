@@ -19,5 +19,5 @@ app.get('/', (req, res) => {
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
-
+//reason we have separated the app.js and index.js is we require app in testing
 module.exports = app;
