@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const compression = require('compression');
 const helmet = require('helmet');
 
-const api=require('./api');
+const api=require('./api');//automatically the index.js file will be imported in api folder
 const project=require('../src/constants/project');//as it is used many times so instead make it a reusable function
 
 const middlewares = require('./middlewares');
