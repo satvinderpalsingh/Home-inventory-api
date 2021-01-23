@@ -13,7 +13,7 @@ const {
 exports.up = async (knex)=>{
     await knex.schema.table(tableNames.state,(table)=>{
         table.string('code')
-        references(table,tableNames.country,false);
+        references(table,tableNames.country);//we have to explicitly pass false for null reference as all states will be realted to countries so not nullable
     });
     await knex.schema.table(tableNames.country,(table)=>{
         table.string('code') 
