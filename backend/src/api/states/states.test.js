@@ -10,6 +10,19 @@ describe('GET /api/v1/states',()=>{
     .expect(200)
     expect(response.body.length).toBeGreaterThan(0);
     });
+    it('should return a state',async ()=>{
+        const response= await supertest(app)
+        .get('/api/v1/states/1')//end point tester
+        .expect('Content-Type',/json/)
+        .expect(200)
+        expect(response.body.id).toBe(1);
+    });
+    it('should return a 404 file not found',async ()=>{
+        const response= await supertest(app)
+        .get('/api/v1/states/4220')//end point tester
+        .expect('Content-Type',/json/)
+        .expect(404)
+        });
 });
 //here we are at end checking the array of returned length to be grater than zero
 //alaways whenever we are executing the application make user all seed and migarte are runned properly
