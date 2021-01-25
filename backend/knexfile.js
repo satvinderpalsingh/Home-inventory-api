@@ -2,7 +2,7 @@
 require('dotenv').config();
 module.exports = {
   development: {
-    client: 'pg',
+    client: 'pg',//it will connect to postgress using the node module pg we can specify any db to vased on our requirement
     connection: {
       database: process.env.POSTGRES_DB,
       user:     process.env.POSTGRES_USER,
