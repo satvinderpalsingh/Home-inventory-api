@@ -3,7 +3,7 @@ const Users=require('./users.model');
 const router=express.Router();
 
 router.get('/',async (req,res)=>{
-    const users=await Users.query();
+    const users=await Users.query().select('id','name','email','created_at','updated_at');
     res.json(users);
 });
 
