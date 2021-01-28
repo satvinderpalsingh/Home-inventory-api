@@ -4,6 +4,7 @@ const bcrypt=require('bcrypt');
 const Users=require('../users/users.model');
 const yup=require('yup');
 const jwt=require('../../lib/jwt');//here we are importing the jwt sign func to actually genrate the token based on passed by us
+const { val } = require('objection');
 
 const schema=yup.object().shape({
     name:yup.string().trim().required().min(2),
@@ -18,6 +19,7 @@ const schema=yup.object().shape({
              .required(),
 });
 
+
 //we have not provided the restictions on no of the inputs yet
 router.post('/signup',async (req,res,next)=>{
     const{
@@ -25,44 +27,103 @@ router.post('/signup',async (req,res,next)=>{
         email,
         password
     }=req.body;//destructuring the request body
+
+
     try {
         const createUser={
             name,
             email,
             password
         };//the user created based on input
+
         await schema.validate(createUser,{abortEarly: false,});//if any error ocuur validation of user input is here
+
         const existingUser= await Users.query().where({email}).first();//we are using the first() if not used first the querry() will return the array of objects but we need only the fisrt passed
+
         if(existingUser){
             const error=new Error('email in use.... try some other email');
             res.status(403);//doubt
             throw error;
         };
+
         const hashedPassword= await bcrypt.hash(password,12);//same level encryption as passed in seeding file of password 12
+
         const insertedUser=await Users.query().insert({
             name,
             email,
             password:hashedPassword
         });
-        delete insertedUser.password;//deleting the property password to be displayed 
+
+        delete insertedUser.password;//deleting the property password to be displayed
+
         const payload={
             id:insertedUser.id,
             name,
             email,
         };
+
         const token=await jwt.sign(payload)//we need to add the await because the the next line is dependent on iot before completion the next line of code has no use so we add await key
+        
         res.json({
-            user:insertedUser,
+            user:payload,
             token
         });
     }catch (error) {
-        console.log(error)
         next(error)
     }
 });
     
 router.post('/signin',async (req,res,next)=>{
-    res.json("hello harry")
+    
+    const{//login will only contain the email and password
+        email,
+        password
+    }=req.body;//destructuring the request body
+    
+    try {
+        const validateCredentials={
+            name:'satvinder',//dummy username added to validate the user credentials
+            email,
+            password
+        };//the user created based on input
+        
+        await schema.validate(validateCredentials,{abortEarly: false,});//if any error ocuur validation of user input is here
+        
+        const user= await Users.query().where({email}).first();//we are using the first() if not used first the querry() will return the array of objects but we need only the fisrt passed
+        
+        if(!user){
+            const error=new Error('invalid credentials');
+            res.status(401);//doubt
+            throw error;
+        };
+        //during comparing first arg always is the request body pass and 2nd arg is the ecrypted password in db
+        
+        const validPassword=await bcrypt.compare(password,user.password);//same level encryption as passed in seeding file of password 12
+        
+        if(!validPassword){
+            const error=new Error('invalid password');
+            res.status(401);//doubt
+            throw error;
+        };
+        
+        const payload={
+            id:user.id,
+            name:user.name,
+            email,
+        };
+        
+        const token=await jwt.sign(payload)//we need to add the await because the the next line is dependent on iot before completion the next line of code has no use so we add await key
+        
+        res.json({
+            user:payload,
+            token
+        });
+    }catch (error) {
+        next(error)
+    }
 });
 
 module.exports=router
+
+
+//we can check our generated jwt at site jwt.io
