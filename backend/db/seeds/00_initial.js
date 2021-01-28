@@ -14,7 +14,7 @@ exports.seed = async (knex) => {
 
   const password = crypto.randomBytes(15).toString('hex');//random password
   const user = {//this object will populate/seed the user table for us 
-    email: 'satvinder.computer',//id field is not orovided we can add it it will automatically added by posytgress and incremented also..
+    email: 'satvinder@computer.com',//id field is not orovided we can add it it will automatically added by posytgress and incremented also..
     name: 'satvinder',
     password: await bcrypt.hash(password, 12),//password encrypted 12 is the count of brute force to break it
   };

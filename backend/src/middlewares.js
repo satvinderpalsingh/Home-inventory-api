@@ -10,6 +10,7 @@ function notFound(req, res, next) {
       status: statusCode,
       message:error.message,
       stack: process.env.NODE_ENV === 'production' ? '🥞' : error.stack,
+      errors:error.errors||undefined,
     });
   }
   
