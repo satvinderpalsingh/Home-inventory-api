@@ -7,6 +7,7 @@ const jwt=require('../../lib/jwt');//here we are importing the jwt sign func to 
 const { val } = require('objection');
 
 const schema=yup.object().shape({
+    //trim() is for whitespace in string
     name:yup.string().trim().required().min(2),
     email:yup.string().trim().email().required(),
     password:yup.string()
@@ -37,7 +38,7 @@ router.post('/signup',async (req,res,next)=>{
         };//the user created based on input
 
         await schema.validate(createUser,{abortEarly: false,});//if any error ocuur validation of user input is here
-
+        //objection specific querry
         const existingUser= await Users.query().where({email}).first();//we are using the first() if not used first the querry() will return the array of objects but we need only the fisrt passed
 
         if(existingUser){
