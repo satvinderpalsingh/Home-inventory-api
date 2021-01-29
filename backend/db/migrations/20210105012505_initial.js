@@ -42,7 +42,7 @@ exports.up = async (knex)=> {//async await used because some tables might be dep
         table.double('longitude').notNullable();
         references(table,'state',false);//in cj it is null
         references(table,'country',false);
-        addDefaultColumns(table);
+        addDefaultColumns(table);//we add created_at ,updated_at and deleted_at collumn to every table 
     });
     await knex.schema.createTable(tableNames.company,(table)=>{
         table.increments().notNullable();

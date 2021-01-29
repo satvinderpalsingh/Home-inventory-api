@@ -32,9 +32,9 @@
             ]
         },
         "password": {
-          "$id": "#/properties/password",
-          "type": "string",
-          "title": "The users hashed password."
+            "$id": "#/properties/password",
+            "type": "string",
+            "title": "The users hashed password."
         },
         "created_at": {
             "$id": "#/properties/created_at",
@@ -47,4 +47,4 @@
             "title": "The date the user was last updated."
         }
     }
-  }
+}

@@ -1,7 +1,7 @@
 version: '3.1'
 services:
-  db:
-    image: postgres
+  db: #this name is used to mention the server name
+    image: postgres #pull the image of the db we want to make use of it
     restart: always
     #volumes:
     #  - ./docker-data/db-data:/var/lib/postgresql/data #volumes used to match the dabase data in docker to local directory because when it goes down we have backup  
@@ -10,7 +10,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - 5432:5432
+      - 5432:5432 #every database has default port no on which it work
   adminer:
     depends_on:
       - db
