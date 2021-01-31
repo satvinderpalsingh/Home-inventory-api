@@ -42,7 +42,15 @@ exports.up = async (knex)=> {//async await used because some tables might be dep
         table.double('longitude').notNullable();
         references(table,'state',false);//in cj it is null
         references(table,'country',false);
-        addDefaultColumns(table);//we add created_at ,updated_at and deleted_at collumn to every table 
+        addDefaultColumns(table);//we add created_at ,updated_at and deleted_at collumn to every table
+        table.unique(["street_address_1",
+        "street_address_2",
+        "city",
+        "pincode",
+        "state_id",
+        "country_id"
+        //it should not have the null column here bcoz it can ciause the error in insertion as it is alsocompared 
+      ]); 
     });
     await knex.schema.createTable(tableNames.company,(table)=>{
         table.increments().notNullable();

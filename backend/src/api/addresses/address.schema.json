@@ -6,8 +6,12 @@
     "required": [
         "street_address_1",
         "city",
-        "zipcode",
-        "country_id"
+        "pincode",
+        "state_id",
+        "country_id",
+        "latitude",
+        "longitude"
+
     ],
     "additionalProperties": false,
     "properties": {
@@ -31,7 +35,7 @@
             "type": "string",
             "title": "The city name."
         },
-        "zipcode": {
+        "pincode": {
             "$id": "#/properties/zipcode",
             "type": "string",
             "title": "The zipcode."

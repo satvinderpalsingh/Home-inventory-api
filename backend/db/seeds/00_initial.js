@@ -16,7 +16,7 @@ exports.seed = async (knex) => {
   const user = {//this object will populate/seed the user table for us 
     email: 'satvinder@computer.com',//id field is not orovided we can add it it will automatically added by posytgress and incremented also..
     name: 'satvinder',
-    password: await bcrypt.hash(password, 12),//password encrypted 12 is the count of brute force to break it
+    password: await bcrypt.hash(password, 12),//password encrypted 12 is the count of brute force to break it we need to make it same everywhere
   };
   const [createdUser]=await knex(tableNames.user).insert(user).returning('*');// INSERTING USER OBJECT INSIDE IT postgress allows us to see the data that we have inserted usiing returning('*') in an array form
   const insertedCountries=await knex(tableNames.country).insert(countries,"*");//we can send single object as well as array of object also at one time.(sometimes we need a refernece of seeded objects so we can get it using .returning("*") * means all objects or using "*" argument in insert())
@@ -25,7 +25,7 @@ exports.seed = async (knex) => {
   //we need to maintain the different states file for different states of a particular countries because according to countrie name that we know from countries file we 
   //-can filter  countrie_code pass it to specific states file
   //initially states represnet states of india only  
-  const ind = insertedCountries.find((country) => country.name === 'IND');
+  const ind = insertedCountries.find((country) => country.name === 'IND');//here we are setting the refernce key of state table regarding
   states.forEach((state) => {
     state.country_id = ind.id;
   });

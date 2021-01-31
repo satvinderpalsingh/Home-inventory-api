@@ -6,6 +6,11 @@ const yup = require('yup');
 const jwt = require('../../lib/jwt');//here we are importing the jwt sign func to actually genrate the token based on passed by us
 const { val } = require('objection');
 
+
+
+//defining the validation with yup doesnt means that opur json schema defined for validation will not work it will also work along with the yup library
+//yup library has more features for validation thats why we have used it.
+
 const schema = yup.object().shape({
     //trim() is for whitespace in string
     name: yup.string().trim().required().min(2),
@@ -37,7 +42,7 @@ router.post('/signup', async (req, res, next) => {
             password
         };//the user created based on input
 
-        await schema.validate(createUser, { abortEarly: false, });//if any error ocuur validation of user input is here
+        await schema.validate(createUser, { abortEarly: false, });//if any error ocuur validation of user input is here if not validated than passed to catch block for erropr 
         //objection specific querry
         const existingUser = await Users.query().where({ email }).first();//we are using the first() if not used first the querry() will return the array of objects but we need only the fisrt passed
 

@@ -3,12 +3,40 @@ const router=express.Router();
 const Address=require('./addresses.model');
 
 router.get('/',async (req,res)=>{
-    const addreses = await Address
-                    .query()
-                    .where({
-                        deleted_at:null,//changes to be done for soft deletes
-                    });
-    res.json(addreses);
+    try {
+        const addreses = await Address
+        .query()
+        .where({
+            deleted_at:null,//changes to be done for soft deletes
+        });
+
+        res.json(addreses);     
+    } catch (error) {
+        next(error);       
+    }
+});
+
+
+router.post('/',async (req,res,next)=>{
+    try {
+        [
+        "street_address_1",
+        "city",
+        "pincode",
+        "street_address_1"
+        ].forEach((props)=>{
+            if(req.body[props]){
+            req.body[props]=req.body[props].toLowerCase().trim();
+            }
+        });
+        const address = await Address
+        .query()
+        .insert(req.body);
+
+        res.json(address);     
+    } catch (error) {
+        next(error);       
+    }
 });
 
 module.exports=router;
