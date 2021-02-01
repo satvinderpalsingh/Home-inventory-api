@@ -7,7 +7,7 @@ const countries=require('../../src/constants/countries');
 const states=require('../../src/constants/states');
 
 /**
- * @param {import('knex')} knex
+ * @param {import('knex')} knex //by adding thus we are defining that our  knex Parans is of type Knex which help our vs code to provide auto assist whenn we are using it
  */
 exports.seed = async (knex) => {
   await Promise.all(Object.keys(tableNames).map((name) => knex(name).del()));

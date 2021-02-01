@@ -16,7 +16,7 @@ router.get('/',async (req,res)=>{
     }
 });
 
-
+//TODO-->our request body will not contain the foreign key refernce but it will contain the state and country name so using the model we will querry the id of reference and then create the object which will have all info with refernces and will insert that user in db 
 router.post('/',async (req,res,next)=>{
     try {
         [
