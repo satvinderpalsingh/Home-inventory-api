@@ -21,7 +21,11 @@ app.get('/', (req, res) => {
 });
 //we are specyfying the api/v1 becoz we can in future defines more routes without disturbing others such as api/v2 route
 app.use('/api/v1',api);
+
+//this line will be exuted only when nothing is executed and no next() is called also if *** next is callled is than the notFound middleware willbe bipassed (not executed)
 app.use(middlewares.notFound);
+
+//this error handler will wait for any next to be called so that iit can be excuted
 app.use(middlewares.errorHandler);//always at last
 //reason we have separated the app.js and index.js is we require app in testing
 module.exports = app;

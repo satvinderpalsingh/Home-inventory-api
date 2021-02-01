@@ -1,5 +1,4 @@
 const express = require('express');
-const { RECORD_SEP } = require('papaparse');
 const router = express.Router();
 const queries = require('./states.queries');//used to call the queries created in .queries file
 
