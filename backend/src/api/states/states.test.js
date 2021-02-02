@@ -12,10 +12,10 @@ describe('GET /api/v1/states', () => {
     });
     it('should return a state', async () => {
         const response = await supertest(app)
-            .get('/api/v1/states/1')//end point tester
+            .get('/api/v1/states/7')//end point tester
             .expect('Content-Type', /json/)
             .expect(200)
-        expect(response.body.id).toBe(1);
+        expect(response.body.id).toBe(7);//this test case may fail due to every time changes in the state id
     });
     it('should return a 404 file not found', async () => {
         const response = await supertest(app)

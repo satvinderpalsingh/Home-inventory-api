@@ -14,15 +14,25 @@ exports.seed = async (knex) => {
         .where({
             name: 'IND',
         }).first();
-        //[address_id] so that we can have only one object not an array of one object desttructuring 
-    await knex(tableNames.address)
+    //[address_id] so that we can have only one object not an array of one object desttructuring 
+    const [address_id] = await knex(tableNames.address)
         .insert({
-        street_address_1:"plotNo. SP-3&4",
-        street_address_2:"Industrial Area Kaharani Bhiwandi(Ext.),Tijara",
-        state_id:rajasthan.id,
-        city:"Alwar",
-        pincode:"301019",
-        country_id:ind.id,
-        latitude:27.933743,
-        longitude:76.853127})
+            street_address_1: "plotNo. SP-3&4",
+            street_address_2: "Industrial Area Kaharani Bhiwandi(Ext.),Tijara",
+            state_id: rajasthan.id,
+            city: "Alwar",
+            pincode: "301019",
+            country_id: ind.id,
+            latitude: 27.933743,
+            longitude: 76.853127
+        }).returning('id');//we are returning the id of the inserted addres so that we can use the that address_id in seeding the company refernce id  
+    await knex.table(tableNames.company).insert({
+        name: 'Dr. Oteker',
+        logo_url: 'https://imgur.com/NcqtzQY',
+        description:"Dr. Oetker is a German multinational company that produces baking powder, cake mixes, frozen pizza, pudding, cake decoration, cornflakes, and various other products.",
+        website_url: 'https://www.oetker.in/',
+        email: 'service@oetker.in',
+        address_id,
+    });
+
 };
