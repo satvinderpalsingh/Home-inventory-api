@@ -1,5 +1,6 @@
 const tableNames = require('../../src/constants/tableNames');
-
+const item_types=require('../../src/constants/item_types');
+const item_shapes=require('../../src/constants/item_shapes');
 
 /**
  * @param {import('knex')} knex //by adding thus we are defining that our  knex Parans is of type Knex which help our vs code to provide auto assist whenn we are using it
@@ -15,6 +16,8 @@ exports.seed = async (knex) => {
             name: 'IND',
         }).first();
     //[address_id] so that we can have only one object not an array of one object desttructuring 
+    await knex(tableNames.item_type).insert(item_types);
+    await knex(tableNames.shape).insert(item_shapes);
     const [address_id] = await knex(tableNames.address)
         .insert({
             street_address_1: "plotNo. SP-3&4",

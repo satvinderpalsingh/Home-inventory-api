@@ -56,7 +56,7 @@ exports.up = async (knex)=> {//async await used because some tables might be dep
         table.increments().notNullable();
         table.string('name').notNullable();
         url(table,'logo_url');
-        table.string('description', 1000);
+        table.string('description', 1000);//1000 max length of the decription data 
         url(table,'website_url');
         email(table,'email');
         references(table,'address');

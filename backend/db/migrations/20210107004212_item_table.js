@@ -2,7 +2,6 @@ const { related_item } = require('../../src/constants/tableNames');
 const tableNames = require('../../src/constants/tableNames');
 const {
     addDefaultColumns,
-    createNameTable,
     url,
     email,
     references,
@@ -35,7 +34,7 @@ exports.up = async (knex)=>{
         references(table,tableNames.item_type);
         table.text('description');
         references(table,tableNames.company);
-        references(table,tableNames.size);
+        references(table,tableNames.size,false);
         table.string('sku',25);//sku is the stock keeping unit used to find item details
         addDefaultColumns(table);
         table.boolean('sparks_joy').defaultTo(true);

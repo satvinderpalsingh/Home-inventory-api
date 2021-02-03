@@ -1,0 +1,19 @@
+module.exports=[{
+    name:'Circle',
+  },{
+    name:'Semi-circle',
+  },{
+    name:	'Oval',
+  },{
+    name:'Triangle',
+  },{
+    name:'Square',
+  },{
+    name:'Rectangle',
+  },{
+    name:'Parallelogram',
+  },{
+    name:'Cube',
+  },{
+    name:'Cylinder',
+  }];
