@@ -1,7 +1,10 @@
 const express=require('express');
 const router=express.Router();
 const Item=require('./items.model');
+const itemInfos=require('./items_infos/item_infos.routes');
 
+
+router.use('/:item_id/item_infos', itemInfos);//we shoud pass merge params in router in item_infos table
 router.get('/',async (req,res)=>{
     try {
         const items = await Item
