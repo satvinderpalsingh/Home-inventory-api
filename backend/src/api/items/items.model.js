@@ -2,6 +2,7 @@ const { Model } = require('objection');
 const schema = require('./item.schema.json');
 const tableNames = require('../../constants/tableNames');
 const Item_info = require('./items_infos/item_infos.model');
+//const Item_images = require('./items_image/items_image.routes');
 class Item extends Model {
     static get tableName() {
         return tableNames.item;
@@ -21,7 +22,7 @@ class Item extends Model {
                     from: `${tableNames.item}.id`,//primary key of this table
                     to: `${tableNames.item_info}.item_id`,//foreign key of related table tableName.column(foreign)
                 },
-            },
+            }
         };
     }
 

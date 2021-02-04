@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "Item Image",
+    "description": "The Item Image",
+    "required": [
+      "item_id"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "id": {
+            "$id": "#/properties/id",
+            "type": "integer",
+            "title": "The database ID of the Item."
+        },
+        "image_url": {
+          "$id": "#/properties/image_url",
+          "type": "string",
+          "title": "The image URL."
+        },
+        "item_id": {
+          "$id": "#/properties/item_id",
+          "type": "integer",
+          "title": "The id of the parent item."
+        }
+    }
+  }
