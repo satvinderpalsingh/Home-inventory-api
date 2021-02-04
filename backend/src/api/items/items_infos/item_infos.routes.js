@@ -1,6 +1,6 @@
 const express=require('express');
 const Item_info=require('./item_infos.model');
-const router = express.Router({ mergeParams: true });//this help us to mount the nested routes in router to get the req.params
+const router = express.Router({ mergeParams: true });//this help us to mount the nested passed info in req body routes in router to get the req.params
 router.get('/',async (req,res)=>{
     try {
         const items_info = await Item_info
@@ -33,6 +33,23 @@ router.post('/',async (req,res,next)=>{
     }
 });
 
+router.patch("/:id",async (req,res,next)=>{
+    try {
+        //Very_imp-->if we dont dont't use .patch() and use update() then we will get schema validation error becaise update update require whole object so schema validation validate the whole object but .patch() only require specific properties so it will validate only the passed properties 
+        const item = await Item_info.query().patchAndFetchById(
+            req.params.id,
+            req.body
+          );
+          res.json(item);  
+    } catch (error) {
+        next(error);       
+    }
+
+});
+
 module.exports=router;
 
 //the date we pass as a strng is interepreted as a date 
+//difference b/w put and patch 
+//put require to update whole object
+//patch require us to update only the properties need to be changed
