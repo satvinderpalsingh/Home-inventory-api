@@ -1,7 +1,7 @@
 const express=require('express');
 const Item_info=require('./item_infos.model');
 const router = express.Router({ mergeParams: true });//this help us to mount the nested passed info in req body routes in router to get the req.params
-router.get('/',async (req,res)=>{
+router.get('/',async (req,res,next)=>{
     try {
         const items_info = await Item_info
         .query()
