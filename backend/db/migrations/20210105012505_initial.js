@@ -7,7 +7,7 @@ const {
     references,
   }=require('../../src/lib/tableUtil');
 /**
- * @param {import('knex')} knex//adding this help us to auto complete the knex.schema.
+ * @param {import('knex')} knex//adding this help us to auto complete the knex.schema. also that "knex" variable defined in next line is type Knex 
  */
 exports.up = async (knex)=> {//async await used because some tables might be depended on other tables PK and FK cocepts 
     await Promise.all([//it contains all the tabels which are independent/has no FK
